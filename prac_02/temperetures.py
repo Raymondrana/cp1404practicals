@@ -63,10 +63,6 @@ def convert_fahrenheit(celsius: float) -> float:
     return fahrenheit
 
 
-def do_stuff():
-    """Function docstring"""
-    # statements...
-
 
 
 main()
