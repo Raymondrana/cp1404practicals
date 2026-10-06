@@ -20,10 +20,9 @@ def main():
 def print_report(incomes: list[Any], number_of_months: int):
     print("\nIncome Report\n-------------")
     total = 0
-    for month in range(1, number_of_months + 1):
-        income = incomes[month - 1]
+    for month, income in enumerate(incomes, start = 1):
         total += income
-        print(f"Month {month:.2f} - Income: ${income:.2f} Total: ${total:.2f}")
+        print(f"Month {month} - Income: ${income:.2f} Total: ${total:.2f}")
 
 
 main()
