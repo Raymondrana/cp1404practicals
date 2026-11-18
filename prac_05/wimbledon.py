@@ -1,5 +1,5 @@
 """
 wimbledon
-Estimate:  minutes
+Estimate: 30 minutes
 Actual:   minutes
 """
