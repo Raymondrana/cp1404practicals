@@ -1,7 +1,7 @@
 """
 Project Management Program
 Estimated time: 50 minutes
-Actual time:
+Actual time: 1hr
 """
 import datetime
 from project import Project
@@ -51,6 +51,7 @@ def main():
         save_projects(DEFAULT_FILENAME, projects)
     print("Thank you for using custom-built project management software.")
 
+
 def filter_projects_by_date(projects: list[Project]):
     """Prompt for a date and display projects starting on or after that date, sorted by date."""
     date_string = input("Show projects that start after date (dd/mm/yy): ")
@@ -61,6 +62,7 @@ def filter_projects_by_date(projects: list[Project]):
 
     for project in filtered_projects:
         print(project)
+
 
 def update_project(projects: list[Project]):
     """Allow the user to select a project and update its completion percentage and/or priority."""
@@ -78,6 +80,7 @@ def update_project(projects: list[Project]):
     new_priority = input("New Priority: ")
     if new_priority != "":
         selected_project.priority = int(new_priority)
+
 
 def add_new_project(projects: list[Project]):
     """Prompt user for project details and add a new Project to the list."""
@@ -105,6 +108,7 @@ def display_projects(projects: list[Project]):
     for project in completed_projects:
         print(f"  {project}")
 
+
 def save_projects(filename: str, projects: list[Project]):
     """Save a list of Project objects to a tab-delimited file."""
     with open(filename, "w", encoding="utf-8") as out_file:
@@ -114,6 +118,7 @@ def save_projects(filename: str, projects: list[Project]):
             print(f"{project.name}\t{date_str}\t{project.priority}\t"
                   f"{project.cost_estimate}\t{project.completion_percentage}", file=out_file)
 
+
 def load_projects(filename: str) -> list[Project]:
     """Load projects from a tab-delimited file and return a list of Project objects."""
     projects = []
@@ -121,14 +126,13 @@ def load_projects(filename: str) -> list[Project]:
         in_file.readline()  # Skip header line
         for line in in_file:
             parts = line.strip().split("\t")
-            name = parts
-            start_date = datetime.datetime.strptime(parts, DATE_FORMAT).date()
-            priority = int(parts)
-            cost_estimate = float(parts)
-            completion_percentage = int(parts)
+            name = parts[0]
+            start_date = datetime.datetime.strptime(parts[1], DATE_FORMAT).date()
+            priority = int(parts[2])
+            cost_estimate = float(parts[3])
+            completion_percentage = int(parts[4])
             projects.append(Project(name, start_date, priority, cost_estimate, completion_percentage))
     return projects
 
 
-if __name__ == "__main__":
-    main()
+main()
