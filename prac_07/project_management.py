@@ -33,7 +33,7 @@ def main():
             filename = input("Filename to save projects to: ")
             save_projects(filename, projects)
         elif choice == "D":
-            pass
+            display_projects(projects)
         elif choice == "F":
             pass
         elif choice == "A":
@@ -49,6 +49,19 @@ def main():
     if save_choice in ("y", "yes"):
         save_projects(DEFAULT_FILENAME, projects)
     print("Thank you for using custom-built project management software.")
+
+def display_projects(projects: list[Project]):
+    """Display incomplete and completed projects, each sorted by priority."""
+    incomplete_projects = sorted([p for p in projects if not p.is_complete()])
+    completed_projects = sorted([p for p in projects if p.is_complete()])
+
+    print("Incomplete projects: ")
+    for project in incomplete_projects:
+        print(f"  {project}")
+
+    print("Completed projects: ")
+    for project in completed_projects:
+        print(f"  {project}")
 
 def save_projects(filename: str, projects: list[Project]):
     """Save a list of Project objects to a tab-delimited file."""
