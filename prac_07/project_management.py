@@ -37,9 +37,9 @@ def main():
         elif choice == "F":
             pass
         elif choice == "A":
-            pass
+            add_new_project(projects)
         elif choice == "U":
-            pass
+            update_project(projects)
         else:
             print("Invalid menu choice")
         print(MENU)
@@ -49,6 +49,36 @@ def main():
     if save_choice in ("y", "yes"):
         save_projects(DEFAULT_FILENAME, projects)
     print("Thank you for using custom-built project management software.")
+
+def update_project(projects: list[Project]):
+    """Allow the user to select a project and update its completion percentage and/or priority."""
+    for i, project in enumerate(projects):
+        print(f"{i} {project}")
+
+    project_index = int(input("Project choice: "))
+    selected_project = projects[project_index]
+    print(selected_project)
+
+    new_percentage = input("New Percentage: ")
+    if new_percentage != "":
+        selected_project.completion_percentage = int(new_percentage)
+
+    new_priority = input("New Priority: ")
+    if new_priority != "":
+        selected_project.priority = int(new_priority)
+
+def add_new_project(projects: list[Project]):
+    """Prompt user for project details and add a new Project to the list."""
+    print("Let's add a new project")
+    name = input("Name: ")
+    date_string = input("Start date (dd/mm/yy): ")
+    start_date = datetime.datetime.strptime(date_string, DATE_FORMAT).date()
+    priority = int(input("Priority: "))
+    cost_estimate = float(input("Cost estimate: $"))
+    completion_percentage = int(input("Percent complete: "))
+
+    projects.append(Project(name, start_date, priority, cost_estimate, completion_percentage))
+
 
 def display_projects(projects: list[Project]):
     """Display incomplete and completed projects, each sorted by priority."""
