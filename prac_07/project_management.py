@@ -30,7 +30,8 @@ def main():
             filename = input("Filename to load projects from: ")
             projects = load_projects(filename)
         elif choice == "S":
-            pass
+            filename = input("Filename to save projects to: ")
+            save_projects(filename, projects)
         elif choice == "D":
             pass
         elif choice == "F":
@@ -44,8 +45,19 @@ def main():
         print(MENU)
         choice = input(">>> ").upper()
 
+    save_choice = input(f"Would you like to save to {DEFAULT_FILENAME}? ").lower()
+    if save_choice in ("y", "yes"):
+        save_projects(DEFAULT_FILENAME, projects)
     print("Thank you for using custom-built project management software.")
 
+def save_projects(filename: str, projects: list[Project]):
+    """Save a list of Project objects to a tab-delimited file."""
+    with open(filename, "w", encoding="utf-8") as out_file:
+        print("Name\tStart Date\tPriority\tCost Estimate\tCompletion Percentage", file=out_file)
+        for project in projects:
+            date_str = project.start_date.strftime(DATE_FORMAT)
+            print(f"{project.name}\t{date_str}\t{project.priority}\t"
+                  f"{project.cost_estimate}\t{project.completion_percentage}", file=out_file)
 
 def load_projects(filename: str) -> list[Project]:
     """Load projects from a tab-delimited file and return a list of Project objects."""
