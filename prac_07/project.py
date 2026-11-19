@@ -1,7 +1,7 @@
 """
 Project class module for Project Management Program.
-Estimated time: 50 minutes
-Actual time:
+Estimated time: 15 minutes
+Actual time: 13min
 """
 import datetime
 

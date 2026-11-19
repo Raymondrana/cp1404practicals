@@ -1,0 +1,67 @@
+"""
+Project Management Program
+Estimated time: 50 minutes
+Actual time:
+"""
+import datetime
+from project import Project
+
+DEFAULT_FILENAME = "projects.txt"
+DATE_FORMAT = "%d/%m/%Y"
+MENU = """- (L)oad projects  
+- (S)ave projects  
+- (D)isplay projects  
+- (F)ilter projects by date
+- (A)dd new project  
+- (U)pdate project
+- (Q)uit"""
+
+
+def main():
+    """Run the project management program."""
+    print("Welcome to Pythonic Project Management")
+    projects = load_projects(DEFAULT_FILENAME)
+    print(f"Loaded {len(projects)} projects from {DEFAULT_FILENAME}")
+
+    print(MENU)
+    choice = input(">>> ").upper()
+    while choice != "Q":
+        if choice == "L":
+            filename = input("Filename to load projects from: ")
+            projects = load_projects(filename)
+        elif choice == "S":
+            pass
+        elif choice == "D":
+            pass
+        elif choice == "F":
+            pass
+        elif choice == "A":
+            pass
+        elif choice == "U":
+            pass
+        else:
+            print("Invalid menu choice")
+        print(MENU)
+        choice = input(">>> ").upper()
+
+    print("Thank you for using custom-built project management software.")
+
+
+def load_projects(filename: str) -> list[Project]:
+    """Load projects from a tab-delimited file and return a list of Project objects."""
+    projects = []
+    with open(filename, "r", encoding="utf-8") as in_file:
+        in_file.readline()  # Skip header line
+        for line in in_file:
+            parts = line.strip().split("\t")
+            name = parts
+            start_date = datetime.datetime.strptime(parts, DATE_FORMAT).date()
+            priority = int(parts)
+            cost_estimate = float(parts)
+            completion_percentage = int(parts)
+            projects.append(Project(name, start_date, priority, cost_estimate, completion_percentage))
+    return projects
+
+
+if __name__ == "__main__":
+    main()
