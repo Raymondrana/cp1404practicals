@@ -8,10 +8,39 @@ FILENAME = "guitars.csv"
 
 
 def main():
-    """Read guitars from file, sort by year, and display them."""
+    """Read guitars from file, add new ones, sort, display, and save."""
     guitars = load_guitars(FILENAME)
-    guitars.sort()
+    print("Loaded guitars:")
     display_guitars(guitars)
+
+    add_new_guitars(guitars)
+
+    guitars.sort()
+    print("\nSorted guitars (oldest to newest):")
+    display_guitars(guitars)
+
+    save_guitars(FILENAME, guitars)
+    print(f"\n{len(guitars)} guitars saved to {FILENAME}.")
+
+
+def save_guitars(filename, guitars):
+    """Write all Guitar objects to the specified CSV file."""
+    with open(filename, "w", encoding="utf-8") as out_file:
+        for guitar in guitars:
+            print(f"{guitar.name},{guitar.year},{guitar.cost}", file=out_file)
+
+
+def add_new_guitars(guitars):
+    """Prompt the user to enter new guitars and append them to the list."""
+    print("\nEnter your new guitars (leave name blank to finish):")
+    name = input("Name: ")
+    while name != "":
+        year = int(input("Year: "))
+        cost = float(input("Cost: $"))
+        new_guitar = Guitar(name, year, cost)
+        guitars.append(new_guitar)
+        print(f"{new_guitar} added.\n")
+        name = input("Name: ")
 
 
 def load_guitars(filename):
