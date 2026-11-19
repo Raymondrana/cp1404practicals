@@ -5,6 +5,7 @@ Actual time:
 """
 import datetime
 from project import Project
+from operator import attrgetter
 
 DEFAULT_FILENAME = "projects.txt"
 DATE_FORMAT = "%d/%m/%Y"
@@ -35,7 +36,7 @@ def main():
         elif choice == "D":
             display_projects(projects)
         elif choice == "F":
-            pass
+            filter_projects_by_date(projects)
         elif choice == "A":
             add_new_project(projects)
         elif choice == "U":
@@ -49,6 +50,17 @@ def main():
     if save_choice in ("y", "yes"):
         save_projects(DEFAULT_FILENAME, projects)
     print("Thank you for using custom-built project management software.")
+
+def filter_projects_by_date(projects: list[Project]):
+    """Prompt for a date and display projects starting on or after that date, sorted by date."""
+    date_string = input("Show projects that start after date (dd/mm/yy): ")
+    filter_date = datetime.datetime.strptime(date_string, DATE_FORMAT).date()
+
+    filtered_projects = [p for p in projects if p.start_date >= filter_date]
+    filtered_projects.sort(key=attrgetter("start_date"))
+
+    for project in filtered_projects:
+        print(project)
 
 def update_project(projects: list[Project]):
     """Allow the user to select a project and update its completion percentage and/or priority."""
