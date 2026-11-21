@@ -7,7 +7,7 @@ def main():
     taxi.drive(18)
     print(taxi)
     print(f"Fare: ${taxi.get_fare():.2f}")
-    assert taxi.get_fare() == 48.78
+    assert taxi.get_fare() == 48.8
 
 
 main()
